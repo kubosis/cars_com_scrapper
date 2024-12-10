@@ -14,6 +14,7 @@ from selenium import webdriver
 
 __all__ = ["CarsComScrapper"]
 
+
 class _UrlSpecifier:
     def __init__(self, max_page_num: int, color: str, base_url: str):
         """
@@ -51,8 +52,15 @@ class _UrlSpecifier:
 
 
 class CarsComScrapper:
-    def __init__(self, pages_count: int, color: str, out_images_path: str,
-                 base_url: str = "https://www.cars.com/shopping/results", verbose: bool = False, test: bool = False):
+    def __init__(
+        self,
+        pages_count: int,
+        color: str,
+        out_images_path: str,
+        base_url: str = "https://www.cars.com/shopping/results",
+        verbose: bool = False,
+        test: bool = False,
+    ):
         self._pages_count: int = pages_count
 
         self._specifier: _UrlSpecifier = _UrlSpecifier(pages_count, color, base_url)
@@ -108,13 +116,13 @@ class CarsComScrapper:
 
         return len(image_tags)
 
-
-
     def run(self):
         scrapped_count = 0
 
         if self._verbose:
-            print(f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}")
+            print(
+                f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}"
+            )
 
         for i, url in enumerate(self._specifier):
             if self._verbose:
