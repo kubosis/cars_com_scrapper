@@ -1,2 +1,2 @@
 from ._scrapper import CarsComScrapper
-from ._page_attributes import *
+from ._page_attributes import colors

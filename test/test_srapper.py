@@ -13,7 +13,7 @@ class TestScrapper(unittest.TestCase):
     def test_scrapper(self):
         scrapper = CarsComScrapper(1, "white", "", test=True, verbose=True)
         count = scrapper.run()
-        assert count == 571
+        assert count == 569
 
 if __name__ == '__main__':
     unittest.main()

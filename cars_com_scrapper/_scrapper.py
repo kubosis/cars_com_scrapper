@@ -1,8 +1,5 @@
-from typing import Optional, Final
+from typing import Final
 import time
-import re
-from datetime import datetime
-import pathlib as pl
 import requests
 import io
 from PIL import Image
@@ -105,16 +102,22 @@ class CarsComScrapper:
 
         image_tags = soup.find_all("img", class_="vehicle-image")
         img_alt = ""
+
+        scrapped = 0
         for image_tag in image_tags:
-            if img_alt == image_tag.attrs["alt"] or self._test:
+            if img_alt == image_tag.attrs["alt"]:
                 # skip all the other images of the same car,
                 # as these can be interior images (which we don't want)
+                continue
+            scrapped += 1
+
+            if self._test:
                 continue
 
             self._save_image_from_url(image_tag.attrs["src"])
             img_alt = image_tag.attrs["alt"]
 
-        return len(image_tags)
+        return scrapped
 
     def run(self):
         scrapped_count = 0
