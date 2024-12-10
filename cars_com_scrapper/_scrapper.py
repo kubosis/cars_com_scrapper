@@ -131,4 +131,3 @@ class CarsComScrapper:
 
         if self._verbose:
             print("\n[INFO] Scrapping finished")
-
