@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages]
+find = {}
+
+[project]
+name = "mobile_de_scrapper"
+version = "1.0.0"
+description = "Simple webscrapper for mobile.de written in python"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["WebScrapper", "mobile.de"]
+dynamic = ["dependencies"]
+authors = [
+    {name = "Jakub Sukdol", email = "kubasukdol@gmail.com"},
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python",
+]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.urls]
+repository = "https://github.com/kubosis/mobilede_scrapper"
