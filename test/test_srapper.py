@@ -5,7 +5,7 @@ Github: kubosis
 Basic tests
 """
 
-from ..cars_com_scrapper import CarsComScrapper
+from cars_com_scrapper import CarsComScrapper
 
 import unittest
 
