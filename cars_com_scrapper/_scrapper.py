@@ -51,15 +51,16 @@ class _UrlSpecifier:
 
 
 class CarsComScrapper:
-    def __init__(self, pages_count: int, color: str, out_csv_path: str, out_images_path: str,
-                 base_url: str = "https://www.cars.com/shopping/results", verbose: bool = False):
+    def __init__(self, pages_count: int, color: str, out_images_path: str,
+                 base_url: str = "https://www.cars.com/shopping/results", verbose: bool = False, test: bool = False):
         self._pages_count: int = pages_count
 
         self._specifier: _UrlSpecifier = _UrlSpecifier(pages_count, color, base_url)
-        self._out_csv_path: str = out_csv_path
         self._out_images_path: str = out_images_path
 
         self._verbose: bool = verbose
+        self._test: bool = test
+
         self._color: str = color
 
         self._saved_image_index: int = 0
@@ -97,7 +98,7 @@ class CarsComScrapper:
         image_tags = soup.find_all("img", class_="vehicle-image")
         img_alt = ""
         for image_tag in image_tags:
-            if img_alt == image_tag.attrs["alt"]:
+            if img_alt == image_tag.attrs["alt"] or self._test:
                 # skip all the other images of the same car,
                 # as these can be interior images (which we don't want)
                 continue
@@ -105,9 +106,13 @@ class CarsComScrapper:
             self._save_image_from_url(image_tag.attrs["src"])
             img_alt = image_tag.attrs["alt"]
 
+        return len(image_tags)
+
 
 
     def run(self):
+        scrapped_count = 0
+
         if self._verbose:
             print(f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}")
 
@@ -115,7 +120,9 @@ class CarsComScrapper:
             if self._verbose:
                 print(f"[INFO] page {i+1} out of {self._pages_count}\r", end="")
 
-            self._run_one_page(url)
+            scrapped_count += self._run_one_page(url)
 
         if self._verbose:
             print("\n[INFO] Scrapping finished")
+
+        return scrapped_count

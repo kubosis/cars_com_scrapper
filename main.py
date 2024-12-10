@@ -11,8 +11,7 @@ from cars_com_scrapper import CarsComScrapper, colors
 
 def main():
     for color in colors:
-        scrapper = CarsComScrapper(10, color, f"out/{color}.csv", f"out/{color}/",
-                                   verbose=True)
+        scrapper = CarsComScrapper(10, color, f"out/{color}/", verbose=True)
         scrapper.run()
 
 if __name__ == '__main__':
