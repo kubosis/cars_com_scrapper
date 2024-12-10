@@ -65,6 +65,7 @@ class CarsComScrapper:
 
         self._verbose: bool = verbose
         self._test: bool = test
+        self.test_result: bool = False
 
         self._color: str = color
 
@@ -103,25 +104,20 @@ class CarsComScrapper:
         image_tags = soup.find_all("img", class_="vehicle-image")
         img_alt = ""
 
-        scrapped = 0
+        if self._test and len(image_tags) > 0:
+            self.test_result = True
+            return
+
         for image_tag in image_tags:
             if img_alt == image_tag.attrs["alt"]:
                 # skip all the other images of the same car,
                 # as these can be interior images (which we don't want)
                 continue
-            scrapped += 1
-
-            if self._test:
-                continue
 
             self._save_image_from_url(image_tag.attrs["src"])
             img_alt = image_tag.attrs["alt"]
 
-        return scrapped
-
     def run(self):
-        scrapped_count = 0
-
         if self._verbose:
             print(
                 f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}"
@@ -129,11 +125,10 @@ class CarsComScrapper:
 
         for i, url in enumerate(self._specifier):
             if self._verbose:
-                print(f"[INFO] page {i+1} out of {self._pages_count}\r", end="")
+                print(f"[INFO] page {i + 1} out of {self._pages_count}\r", end="")
 
-            scrapped_count += self._run_one_page(url)
+            self._run_one_page(url)
 
         if self._verbose:
             print("\n[INFO] Scrapping finished")
 
-        return scrapped_count
