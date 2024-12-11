@@ -123,7 +123,9 @@ class CarsComScrapper:
             print(message)
 
     def run(self):
-        self._print(f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}")
+        self._print(
+            f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}"
+        )
 
         for i, url in enumerate(self._specifier):
             self._print(f"[INFO] page {i + 1} out of {self._pages_count}\r", end="")
