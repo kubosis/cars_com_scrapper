@@ -118,10 +118,10 @@ class CarsComScrapper:
             self._save_image_from_url(image_tag.attrs["src"])
             img_alt = image_tag.attrs["alt"]
 
-    def _print(self, message):
+    def _print(self, message, **kwargs):
         """Helper function to print messages if verbose is True."""
         if self._verbose:
-            print(message)
+            print(message, **kwargs)
 
     def run(self):
         self._print(
