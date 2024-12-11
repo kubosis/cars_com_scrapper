@@ -15,10 +15,11 @@ __all__ = ["CarsComScrapper"]
 class _UrlSpecifier:
     def __init__(self, max_page_num: int, color: str, base_url: str):
         """
-        Page specifiers for the mobile.de webpage
+        Page specifiers for the cars.com webpage
 
         :param max_page_num: (int) max page number to stop the iterator
         :param color: (str) string representation of the color in the url specifier
+        :param base_url: (str) should be "https://www.cars.com/shopping/results"
         """
         self._pgn: int = 1
         self._vhc: str = "car"
