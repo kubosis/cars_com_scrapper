@@ -117,17 +117,17 @@ class CarsComScrapper:
             self._save_image_from_url(image_tag.attrs["src"])
             img_alt = image_tag.attrs["alt"]
 
-    def run(self):
+    def _print(self, message):
+        """Helper function to print messages if verbose is True."""
         if self._verbose:
-            print(
-                f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}"
-            )
+            print(message)
+
+    def run(self):
+        self._print(f"[INFO] Scrapping data from {self._specifier.base_url}, color={self._color}")
 
         for i, url in enumerate(self._specifier):
-            if self._verbose:
-                print(f"[INFO] page {i + 1} out of {self._pages_count}\r", end="")
+            self._print(f"[INFO] page {i + 1} out of {self._pages_count}\r", end="")
 
             self._run_one_page(url)
 
-        if self._verbose:
-            print("\n[INFO] Scrapping finished")
+        self._print("\n[INFO] Scrapping finished")
